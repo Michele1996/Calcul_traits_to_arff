@@ -7,7 +7,31 @@ Le lien a son detecteur: https://github.com/Evpok/neural-end-to-end-coref.
 
 Fonctionnement:
 
-* Les mentions au debut sont des listes de mots: ['"le"','"stylo"',]  donc au debut on  rends la mention une string sans caracteres speciaux: le stylo
+Dans toarffTEST
+
+#Lecture du fichier json contenant les mentions
+            if filename:
+               with open(filename, 'r') as f:
+                    results = json.load(f)
+           
+#On initialise le model de udpipe pour le francais
+ model = Model.Model('/mnt/c/Users/miche/Desktop/french-sequoia-ud-2.0-170801.udpipe')
+           
+#On ouvre le fichier contenant le texte brut
+file = open('/mnt/c/Users/miche/Desktop/monfichier2.txt',encoding='latin-1',errors='ignore')
+
+#On ouvre aussi le fichier arff 
+b = open("/mnt/c/Users/miche/Desktop/dete.arff", 'a', encoding='latin-1')
+
+#On utilise la fonction de etiquettage du texte , etiquettage(results,texte_etiquette)
+
+Un texte etiquette c'est un texte où les mentions ont une etiquette composée par un # suivi d'un numero de mention. 
+Par exemple: Un chien se promene dans la foret, on aura #1Un chien se promene dans la foret.  
+
+#On procede au calcul des traits non relationnels
+for row in results:
+                calcul_traits_non_rel(row,Stringa_comparaison)
+* Les mentions au debut sont des listes de mots: ['"le"','"stylo"',]  donc au debut on rends la mention une string sans caracteres speciaux: le stylo
 
 *Pour chaque mentions donc on cherche a calculer les traits:
  - GENDRE
