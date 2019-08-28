@@ -68,7 +68,8 @@ La fonction en_texte du module entite_nommee_texte nous permet de changer de dir
  import os
             os.system("cd /home/mike/mXS")  #on change de directory pour etre dans la directory de mXS
             os.system("echo \""+mots+"\" | ./bin/tagEtapeModelPLOP.sh > /mnt/c/Users/miche/Desktop/entity.txt") #on utilise mXS on donnant le texte entier etiquetté et on le sauvegarde dans entity.txt
-            b=open('/mnt/c/Users/miche/Desktop/entity.txt')
+            file=open('/mnt/c/Users/miche/Desktop/entity.txt')
+            texte_entite = str(file.read())
 
 Ex:
 
