@@ -23,15 +23,27 @@ file = open('/mnt/c/Users/miche/Desktop/monfichier2.txt',encoding='latin-1',erro
 #On ouvre aussi le fichier arff 
 b = open("/mnt/c/Users/miche/Desktop/dete.arff", 'a', encoding='latin-1')
 
-#On utilise la fonction de etiquettage du texte , etiquettage(results,texte_etiquette)
+#On utilise la fonction de etiquettage du texte du module etiquettage_texte, etiquettage(results,texte_etiquette)
 
 Un texte etiquette c'est un texte où les mentions ont une etiquette composée par un # suivi d'un numero de mention. 
 Par exemple: Un chien se promene dans la foret, on aura #1Un chien se promene dans la foret.  
 
-#On procede au calcul des traits non relationnels
+#On procede au calcul des traits non relationnels, en utilisant la fonction calcul_traits_non_rel_ du module traits_non_relationnels.
 for row in results:
-                calcul_traits_non_rel(row,Stringa_comparaison)
+    calcul_traits_non_rel(row,Stringa_comparaison)
+    for row2 in res:
+        calcul_traits_non_rel(row2, Stringa_comparaison1)
+On va calculer donc les traits pour chaque couple de mention grace aux deux cycle for.
+Dans le deuxieme for on a aussi la fonction calcul_traits_rel du module traits_relationnels qui nous permet de calculer pour chaque couple de mention m1, m2.
+                
+ 
 * Les mentions au debut sont des listes de mots: ['"le"','"stylo"',]  donc au debut on rends la mention une string sans caracteres speciaux: le stylo
+
+mention2=str(row['content']).replace('[','').replace(']','').replace('\'','').replace(',','').replace('<start>','').replace('<end>','').replace('\"','').replace("\"m\" ","m'").replace("\"qu\" il","qu'il").replace("\"l\" ","l'").replace("  "," ").replace("\"d\" ","d'").replace("\"n\" ","n'").replace("m ","m'").replace("d ","d'").replace("l ","l'").replace("qu  ","qu'").replace("-","")
+
+mention2= mention2.replace("*","\'")
+Grace a ces deux manipulation mention2 est donc la mention nettoyé
+
 
 *Pour chaque mentions donc on cherche a calculer les traits:
  - GENDRE
@@ -50,6 +62,8 @@ En considerant les mentions et les phrases ou la mentions est presente on etique
 On prends separement les mentions et on les etiquettes avec un # suivi d'un nombre de mention: ex la stylo#1
 
 Une fois le texte entier etiquetté on passe le texte au script mXS , detecteur de entités nommées crée par Damien Nouvel http://damien.nouvels.net/fr/mxs:
+
+La fonction en_texte du module entite_nommee_texte nous permet de changer de directory et passer dans la directory de mXS (etape obligatoire pour son utilisation), on va lui passer le texte brut et il va calculer les entite nommee. Il va ensuite ecrire le texte avec les entites nommees dans un fichier entity.txt
 
  import os
             os.system("cd /home/mike/mXS")  #on change de directory pour etre dans la directory de mXS
