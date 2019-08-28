@@ -1,7 +1,8 @@
-Ce script prend en charge un fichier json contenant les mentions et leur context droit et gauche.
+
+Le script toarffTEST prend en charge un fichier json contenant les mentions et leur context droit et gauche.
 Un exemple de fichier json est disponible au  https://github.com/Michele1996/Projet/edit/master/mentions.json
 
-Ce fichier a été crée a en donnant un texte brut (.txt) au détecteur de mentions crée par Loic Grobol http://lattice.cnrs.fr/Grobol-Loic
+Ce fichier a Ã©tÃ© crÃ©e a en donnant un texte brut (.txt) au dÃ©tecteur de mentions crÃ©e par Loic Grobol http://lattice.cnrs.fr/Grobol-Loic
 Le lien a son detecteur: https://github.com/Evpok/neural-end-to-end-coref.
 
 Fonctionnement:
@@ -24,11 +25,11 @@ Fonctionnement:
 En considerant les mentions et les phrases ou la mentions est presente on etiquette le texte entier
 On prends separement les mentions et on les etiquettes avec un # suivi d'un nombre de mention: ex la stylo#1
 
-Une fois le texte entier etiquetté on passe le texte au script mXS , detecteur de entités nommées crée par Damien Nouvel http://damien.nouvels.net/fr/mxs:
+Une fois le texte entier etiquettÃ© on passe le texte au script mXS , detecteur de entitÃ©s nommÃ©es crÃ©e par Damien Nouvel http://damien.nouvels.net/fr/mxs:
 
  import os
             os.system("cd /home/mike/mXS")  #on change de directory pour etre dans la directory de mXS
-            os.system("echo \""+mots+"\" | ./bin/tagEtapeModelPLOP.sh > /mnt/c/Users/miche/Desktop/entity.txt") #on utilise mXS on donnant le texte entier etiquetté et on le sauvegarde dans entity.txt
+            os.system("echo \""+mots+"\" | ./bin/tagEtapeModelPLOP.sh > /mnt/c/Users/miche/Desktop/entity.txt") #on utilise mXS on donnant le texte entier etiquettÃ© et on le sauvegarde dans entity.txt
             b=open('/mnt/c/Users/miche/Desktop/entity.txt')
 
 Ex:
@@ -56,11 +57,11 @@ La tokenisation nous donne un format similaire au XML avec des balise:
                          sub           CDATA        #REQUIRED>
 
 Grace aux nodes ELEMENT Et les attributes mi  qui contient le Gendre, le Nombre et  si qui contient le role du mots ex: root ou case on sait quel mot est la tete de la mention, on regarde le contenu de mi pour savoir son gendre et son nombre.
-Pour le trait GROUPE PREPOSITIONNEL on regarde les fils du mot où le 'si' est root, et dans le cas ou il y a un mot où le 'si' est 'case' alors la mention est dans un groupe prepositionnel.
+Pour le trait GROUPE PREPOSITIONNEL on regarde les fils du mot oÃ¹ le 'si' est root, et dans le cas ou il y a un mot oÃ¹ le 'si' est 'case' alors la mention est dans un groupe prepositionnel.
 
-Pour les Entité Nommées On recherche dans le texte etiquetté et passé a mXS en lui enlevant la balise fermant </..>, une fois trouvé on regarde les caracteres a gauche pour voir si il y a une entité nommée detectée et donc la quelle.
+Pour les EntitÃ© NommÃ©es On recherche dans le texte etiquettÃ© et passÃ© a mXS en lui enlevant la balise fermant </..>, une fois trouvÃ© on regarde les caracteres a gauche pour voir si il y a une entitÃ© nommÃ©e detectÃ©e et donc la quelle.
 
-Une fois avoir fait ca et avoir stoquée la mention et ses 4 premiers traits , avec une boucle for on boucle sur la liste des mentions et on calcul les meme traits de facon a avoir des couples de mentions et traits. Pour chaque couple on va ensuite calculer les traits:
+Une fois avoir fait ca et avoir stoquÃ©e la mention et ses 4 premiers traits , avec une boucle for on boucle sur la liste des mentions et on calcul les meme traits de facon a avoir des couples de mentions et traits. Pour chaque couple on va ensuite calculer les traits:
 
 - DISTANCE EN NOMBRE DE MOTS
  - DISTANCE EN NOMBRE DE CARACTERES
@@ -69,13 +70,13 @@ Une fois avoir fait ca et avoir stoquée la mention et ses 4 premiers traits , av
  - SI ELLE SONT IDENTIQUES ID_FORM
  - SI UNE EST PARTIE DE L'AUTRE SUB_FORM
 
-Dont toutes sont calcules a partire de operations basilaires sur chaines , donc comparaison, chercher le debut de chaque mentions et trouver les distances en mots, phrases et caracteres sauf le taux d'inclusion qui est calculé grace au module fuzzywuzzy:
+Dont toutes sont calcules a partire de operations basilaires sur chaines , donc comparaison, chercher le debut de chaque mentions et trouver les distances en mots, phrases et caracteres sauf le taux d'inclusion qui est calculÃ© grace au module fuzzywuzzy:
 
 from fuzzywuzzy import fuzz
 fuzz.ratio("this is a test", "this is a test!")
  96
  
-Finalement une fois trouvé tous les traits on utilise le module liarc-arff pour ecrire le fichier arff :
+Finalement une fois trouvÃ© tous les traits on utilise le module liarc-arff pour ecrire le fichier arff :
 
 obj = {
                           'description': u'mention',
