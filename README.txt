@@ -141,6 +141,8 @@ obj = {
                           ('dis_men','REAL'),
                           ('dis_phrase','REAL'),
                           ('dis_char','REAL'),
+                          ('sys_tag',['PR','N']),
+                          ('sys_tag1',['PR','N']),
                         ],
                          'data': listoflist,
                        }                  
