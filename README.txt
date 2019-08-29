@@ -7,6 +7,12 @@ Le lien a son detecteur: https://github.com/Evpok/neural-end-to-end-coref.
 
 Fonctionnement:
 
+On se place dans le repertoire de mXS (Damien Nouvels) damien.nouvels.net/fr/mxs
+cd mXS
+
+Et on lance le script toarffTEST.py 
+python /mnt/c/Users/miche/Desktop/Stage/toarffTEST.py 
+
 Dans toarffTEST
 
 #Lecture du fichier json contenant les mentions
